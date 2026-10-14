@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blunder of briljant? — Spellen — Kip en Schaak</title>
+  <meta name="description" content="Blunder of briljant? Raad of een zet uit een echte Lichess-partij een blunder of een briljant offer was." />
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/games.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/favicon.png" alt="" width="40" height="40" />
+        <span>Kip en Schaak</span>
+      </a>
+      <button class="nav-toggle" aria-label="Menu openen" aria-expanded="false">☰</button>
+      <nav class="site-nav">
+        <a href="index.html#afleveringen">Afleveringen</a>
+        <a href="spellen.html" aria-current="page">Spellen</a>
+        <a href="index.html#over">Over ons</a>
+        <a href="index.html#luister">Kijk &amp; luister</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section game-page">
+    <div class="container">
+      <p class="breadcrumb"><a href="spellen.html">← Alle spellen</a></p>
+      <h1>Blunder of briljant?</h1>
+
+      <section id="intro" class="intro-card">
+        <h2>Hoe werkt het?</h2>
+        <ol>
+          <li>Je ziet een zet uit een echte Lichess-partij, gemarkeerd op het bord.</li>
+          <li>Was het een <strong>blunder ??</strong> waarmee de speler de partij weggaf,
+            of een <strong>briljant offer !!</strong> dat de engine goedkeurt?</li>
+          <li>Blader gerust terug om te zien hoe de stelling ontstond. Na je antwoord kan je
+            ook het vervolg bekijken.</li>
+        </ol>
+        <p>Je hebt <strong>20 seconden</strong> per stelling en <strong>3 eitjes</strong>: bij elke fout breekt er een. 🍳
+          Hoeveel heb je er juist voor ze allemaal op zijn?</p>
+        <button id="start-btn" class="btn btn-primary">Start</button>
+      </section>
+
+      <div id="play" hidden>
+        <div class="status-bar">
+          <span>Score: <strong id="score">0</strong></span>
+          <span>Levens: <span id="lives"></span></span>
+          <span>Reeks: <strong id="streak">0</strong></span>
+          <span>Record: <strong id="best">0</strong></span>
+          <span class="clock">⏱ <strong id="clock">20</strong>s</span>
+          <div class="clock-track" aria-hidden="true"><div id="clock-bar" class="clock-bar"></div></div>
+        </div>
+
+        <div class="game-layout">
+          <div class="board-column">
+            <div id="board" class="board" aria-label="Schaakbord"></div>
+            <div class="board-controls">
+              <button id="btn-first" aria-label="Naar het begin">⏮</button>
+              <button id="btn-prev" aria-label="Vorige zet">◀</button>
+              <button id="btn-move" aria-label="Naar de zet">●</button>
+              <button id="btn-next" aria-label="Volgende zet">▶</button>
+              <button id="btn-last" aria-label="Naar het einde">⏭</button>
+            </div>
+            <p id="move-counter" class="move-counter"></p>
+          </div>
+
+          <div class="info-column">
+            <div class="bb-question">
+              <p class="bb-mover" id="mover"></p>
+              <p class="bb-move" id="the-move"></p>
+              <p class="bb-meta" id="meta"></p>
+            </div>
+
+            <div class="bb-choices" id="choices">
+              <button class="bb-choice bb-blunder" data-answer="blunder">Blunder <span>??</span></button>
+              <button class="bb-choice bb-briljant" data-answer="briljant">Briljant <span>!!</span></button>
+            </div>
+
+            <section id="feedback" class="feedback" hidden aria-live="polite"></section>
+            <div id="moves" class="moves"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="data-credit">
+        Stellingen en evaluaties uit de <a href="https://database.lichess.org/" target="_blank" rel="noopener">Lichess-database</a> (CC0).
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Kip en Schaak</p>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/data/blunder-briljant.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/blunder-briljant.js"></script>
+</body>
+</html>

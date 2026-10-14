@@ -1,7 +1,6 @@
 // Elo-ladder: Hitster, maar met schaakpartijen.
 // Plaats elke nieuwe partij op de juiste plek in je tijdlijn van gemiddelde Elo's.
 
-const GOAL = 10;
 const LIVES = 3;
 const AUTOPLAY_MS = 700;
 const ANSWER_SECONDS = 60;
@@ -266,7 +265,7 @@ function guess(index) {
     state.lives--;
   }
   state.reveal = { game: g, index, correct, timeout: index === null };
-  state.phase = state.score >= GOAL || state.lives <= 0 ? "over" : "reveal";
+  state.phase = state.lives <= 0 || state.deck.length === 0 ? "over" : "reveal";
 
   renderTimeline();
   renderStatus();
@@ -280,10 +279,17 @@ function getBest() {
 }
 
 function renderStatus() {
-  el.score.textContent = `${state.score} / ${GOAL}`;
+  el.score.textContent = state.score;
   el.lives.textContent = "🥚".repeat(state.lives) + "🍳".repeat(LIVES - state.lives);
   el.lives.setAttribute("aria-label", `${state.lives} levens over`);
   el.best.textContent = getBest();
+}
+
+function endMessage(score) {
+  return score >= 20 ? "Echte grootmeesterkip!" :
+    score >= 10 ? "Sterk! Jij hebt oog voor rating." :
+    score >= 5 ? "Niet slecht, maar er zit nog een kip in je schaakbord." :
+    "Oei. Misschien toch eens een aflevering herbeluisteren?";
 }
 
 function renderFeedback() {
@@ -305,10 +311,8 @@ function renderFeedback() {
   if (state.phase === "over") {
     if (state.score > getBest()) localStorage.setItem(BEST_KEY, state.score);
     renderStatus();
-    title = state.score >= GOAL ? "Gewonnen! 🏆" : "Game over";
-    text += state.score >= GOAL
-      ? ` Je hebt ${GOAL} partijen correct gerangschikt. Echte grootmeesterkip!`
-      : ` Je eindscore: <strong>${state.score}</strong>.`;
+    title = state.lives > 0 ? "Alle partijen gespeeld! 🏆" : "Game over";
+    text += ` Je eindscore: <strong>${state.score}</strong>. ${endMessage(state.score)}`;
     button = "Opnieuw spelen";
   } else {
     button = "Volgende partij";

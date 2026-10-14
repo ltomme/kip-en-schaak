@@ -57,7 +57,8 @@ function buildPositions(uciMoves) {
   return positions;
 }
 
-function renderBoard(container, squares, lastUci) {
+// flipped = true: zwart onderaan.
+function renderBoard(container, squares, lastUci, flipped = false) {
   const highlight = lastUci
     ? [squareIndex(lastUci.slice(0, 2)), squareIndex(lastUci.slice(2, 4))]
     : [];
@@ -73,7 +74,7 @@ function renderBoard(container, squares, lastUci) {
   }
 
   squares.forEach((piece, i) => {
-    const sq = container.children[i];
+    const sq = container.children[flipped ? 63 - i : i];
     sq.classList.toggle("last-move", highlight.includes(i));
     if (!piece) {
       sq.textContent = "";

@@ -266,3 +266,39 @@ a.game-card:hover { color: var(--ink); transform: translate(-2px, -2px); box-sha
   .game-layout { grid-template-columns: minmax(0, 1fr); }
   .moves { max-height: 180px; }
 }
+
+/* Blunder of briljant? */
+.bb-question {
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.bb-mover { margin: 0; font-weight: 800; color: var(--brown); text-transform: uppercase; letter-spacing: 0.05em; }
+.bb-move { margin: 0.1rem 0; font-family: var(--font-display); font-size: 2.5rem; color: var(--crimson); line-height: 1.2; }
+.bb-meta { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+.bb-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.bb-choices[hidden] { display: none; }
+.bb-choice {
+  padding: 1rem;
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 4px 4px 0 var(--ink);
+  font: 400 1.6rem var(--font-display);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.bb-choice span { display: block; font-size: 1.2rem; opacity: 0.8; }
+.bb-choice:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+.bb-blunder { background: var(--red); color: #fff; }
+.bb-briljant { background: #2f8a3b; color: #fff; }
+
+.board.at-question { box-shadow: 5px 5px 0 var(--brown), 0 0 0 4px var(--gold); }
+.move.question-move { outline: 2px dashed var(--crimson); }
