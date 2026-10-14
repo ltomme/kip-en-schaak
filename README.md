@@ -5,7 +5,10 @@ Website voor de schaakpodcast **Kip en Schaak**. Statische site (HTML/CSS/JS), g
 ## Structuur
 
 ```
-index.html             Homepagina (hero, afleveringen, over ons, luister, contact)
+index.html             Homepagina (logo, nieuwste aflevering, spellen)
+afleveringen.html      Alle afleveringen met zoekfunctie
+over-ons.html          De hosts
+contact.html           Contact
 spellen.html           Overzicht van de spelletjes
 elo-ladder.html        Spel: Elo-ladder (Hitster met schaakpartijen)
 blunder-briljant.html  Spel: Blunder of briljant?
@@ -13,7 +16,7 @@ kippenschaak.html      Spel: Kippenschaak (schaak met eieren, 2 spelers)
 css/styles.css         Opmaak en kleuren (aanpasbaar via CSS-variabelen bovenaan)
 css/games.css          Extra opmaak voor de spellen
 js/episodes.js         Lijst met afleveringen — hier voeg je nieuwe afleveringen toe
-js/main.js             Rendert afleveringen en zoekfunctie
+js/main.js             Rendert afleveringen (alle + zoeken, of enkel de nieuwste)
 js/nav.js              Mobiel menu en jaartal (gedeeld door alle pagina's)
 js/board.js            Eenvoudig schaakbord dat UCI-zetten afspeelt
 js/elo-ladder.js       Spellogica van de Elo-ladder
@@ -54,8 +57,8 @@ De thumbnail komt automatisch van YouTube; de speler laadt pas na een klik.
 
 ## Nog in te vullen
 
-- Namen, bio's en foto's van de hosts (sectie "Over ons" in `index.html`)
-- Eventuele extra platformen (Spotify, Apple Podcasts…) in de sectie "Kijk & luister"
+- Bio's en foto's van de hosts (`over-ons.html`)
+- Eventuele extra platformen (bv. Apple Podcasts) als icoon in de bovenbalk (`social-links` in elke pagina)
 
 ## Elo-ladder: nieuwe partijen
 

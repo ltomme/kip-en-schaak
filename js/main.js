@@ -1,5 +1,8 @@
+// Afleveringen tonen: alle (met zoekfunctie) op afleveringen.html,
+// enkel de nieuwste op de homepagina.
 const list = document.getElementById("episode-list");
 const search = document.getElementById("episode-search");
+const latest = document.getElementById("latest-episode");
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString("nl-BE", {
@@ -43,14 +46,14 @@ function createVideo(ep) {
   return wrapper;
 }
 
-function renderEpisodes(episodes) {
-  list.replaceChildren();
+function renderEpisodes(container, episodes) {
+  container.replaceChildren();
 
   if (episodes.length === 0) {
     const empty = document.createElement("p");
     empty.className = "episode-empty";
     empty.textContent = "Geen afleveringen gevonden.";
-    list.append(empty);
+    container.append(empty);
     return;
   }
 
@@ -74,19 +77,23 @@ function renderEpisodes(episodes) {
     body.append(meta, title, desc);
     if (ep.youtube) article.append(createVideo(ep));
     article.append(body);
-    list.append(article);
+    container.append(article);
   }
 }
 
-search.addEventListener("input", () => {
-  const q = search.value.trim().toLowerCase();
-  renderEpisodes(
-    EPISODES.filter(
-      (ep) =>
-        ep.title.toLowerCase().includes(q) ||
-        ep.description.toLowerCase().includes(q)
-    )
-  );
-});
+if (list) {
+  search.addEventListener("input", () => {
+    const q = search.value.trim().toLowerCase();
+    renderEpisodes(
+      list,
+      EPISODES.filter(
+        (ep) =>
+          ep.title.toLowerCase().includes(q) ||
+          ep.description.toLowerCase().includes(q)
+      )
+    );
+  });
+  renderEpisodes(list, EPISODES);
+}
 
-renderEpisodes(EPISODES);
+if (latest) renderEpisodes(latest, EPISODES.slice(0, 1));
