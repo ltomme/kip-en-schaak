@@ -9,6 +9,7 @@ index.html             Homepagina (hero, afleveringen, over ons, luister, contac
 spellen.html           Overzicht van de spelletjes
 elo-ladder.html        Spel: Elo-ladder (Hitster met schaakpartijen)
 blunder-briljant.html  Spel: Blunder of briljant?
+kippenschaak.html      Spel: Kippenschaak (schaak met eieren, 2 spelers)
 css/styles.css         Opmaak en kleuren (aanpasbaar via CSS-variabelen bovenaan)
 css/games.css          Extra opmaak voor de spellen
 js/episodes.js         Lijst met afleveringen — hier voeg je nieuwe afleveringen toe
@@ -17,6 +18,8 @@ js/nav.js              Mobiel menu en jaartal (gedeeld door alle pagina's)
 js/board.js            Eenvoudig schaakbord dat UCI-zetten afspeelt
 js/elo-ladder.js       Spellogica van de Elo-ladder
 js/blunder-briljant.js Spellogica van Blunder of briljant?
+js/kippenschaak-rules.js  Spelregels van Kippenschaak (schaak + eieren)
+js/kippenschaak.js     Bediening en weergave van Kippenschaak
 js/data/elo-games.js   315 Lichess-partijen voor de Elo-ladder (gegenereerd)
 js/data/blunder-briljant.js  120 blunders + 120 briljante offers (gegenereerd)
 tools/                 Scripts om nieuwe partijen en stellingen te selecteren

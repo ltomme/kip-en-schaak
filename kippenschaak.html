@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kippenschaak — Spellen — Kip en Schaak</title>
+  <meta name="description" content="Kippenschaak: schaak met eieren. Laat je dame een ei leggen en broed het uit met je kip." />
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/games.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/favicon.png" alt="" width="40" height="40" />
+        <span>Kip en Schaak</span>
+      </a>
+      <button class="nav-toggle" aria-label="Menu openen" aria-expanded="false">☰</button>
+      <nav class="site-nav">
+        <a href="index.html#afleveringen">Afleveringen</a>
+        <a href="spellen.html" aria-current="page">Spellen</a>
+        <a href="index.html#over">Over ons</a>
+        <a href="index.html#luister">Kijk &amp; luister</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section game-page">
+    <div class="container">
+      <p class="breadcrumb"><a href="spellen.html">← Alle spellen</a></p>
+      <h1>Kippenschaak</h1>
+
+      <div class="game-layout">
+        <div class="board-column">
+          <div id="ks-board" class="board ks-board" aria-label="Schaakbord"></div>
+          <div id="ks-promo" class="ks-promo" hidden></div>
+          <div class="ks-controls">
+            <button id="ks-undo" class="btn btn-ghost">↶ Zet terug</button>
+            <button id="ks-flip" class="btn btn-ghost">⇅ Draai bord</button>
+            <button id="ks-restart" class="btn btn-ghost">Nieuwe partij</button>
+          </div>
+          <label class="ks-autoflip"><input type="checkbox" id="ks-autoflip" /> Bord automatisch draaien voor wie aan zet is</label>
+        </div>
+
+        <div class="info-column">
+          <p id="ks-status" class="ks-status"></p>
+          <ul id="ks-eggs" class="ks-eggs"></ul>
+          <p id="ks-news" class="ks-news" aria-live="polite"></p>
+          <div id="ks-moves" class="moves ks-moves"></div>
+
+          <details class="intro-card ks-rules" open>
+            <summary>Spelregels</summary>
+            <p>Gewoon schaak, met twee spelers op één toestel. Maar dan met eieren:</p>
+            <ul>
+              <li><strong>🥚 Ei leggen:</strong> klik je dame en dan je eigen koning. Dat mag als de dame
+                de koning zou kunnen "slaan" (zelfde lijn, niets ertussen). Dame en koning blijven staan,
+                en er verschijnt een ei op een willekeurig leeg veld op jouw helft. Dat kost je beurt.</li>
+              <li><strong>🐔 De kip</strong> vervangt het paard en springt net zoals een paard.</li>
+              <li><strong>🐣 Uitbroeden:</strong> spring met je kip op je eigen ei. Er komt een willekeurig
+                stuk uit (pion 51%, kip 17%, loper 17%, toren 10%, dame 6%) en de kip keert terug naar haar veld.</li>
+              <li><strong>🍳 Kapot:</strong> landt een stuk van de tegenstander op je ei, dan is het kapot.</li>
+              <li>Je hebt maximaal <strong>één ei tegelijk</strong>, en je kan geen ei leggen als je schaak staat.</li>
+              <li>Na een ei moet je eerst zelf <strong>een pionzet of een slagzet</strong> spelen (zoals bij de
+                50-zettenregel) voor je een nieuw ei mag leggen. Een ei kapotmaken telt niet als slaan, tenzij met een pion.</li>
+              <li>Een ei is een obstakel: je eigen stukken (behalve kippen) kunnen er niet op of over.</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Kip en Schaak</p>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/kippenschaak-rules.js"></script>
+  <script src="js/kippenschaak.js"></script>
+</body>
+</html>

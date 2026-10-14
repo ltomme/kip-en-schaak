@@ -302,3 +302,136 @@ a.game-card:hover { color: var(--ink); transform: translate(-2px, -2px); box-sha
 
 .board.at-question { box-shadow: 5px 5px 0 var(--brown), 0 0 0 4px var(--gold); }
 .move.question-move { outline: 2px dashed var(--crimson); }
+
+/* Kippenschaak */
+.ks-board .square {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  position: relative;
+}
+.ks-board .square.selected { box-shadow: inset 0 0 0 4px var(--crimson); }
+.ks-board .square.in-check { background: radial-gradient(circle, #ff5a4a 0, #c80116 70%); }
+.ks-board .square.target::after {
+  content: "";
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  background: rgba(55, 13, 15, 0.35);
+  pointer-events: none;
+}
+.ks-board .square.target-capture::after,
+.ks-board .square.target-breakEgg::after {
+  width: 86%;
+  height: 86%;
+  background: transparent;
+  border: 4px solid rgba(155, 23, 18, 0.6);
+}
+.ks-board .square.target-lay::after,
+.ks-board .square.target-hatch::after {
+  content: "🥚";
+  top: 3%;
+  right: 5%;
+  width: auto;
+  height: auto;
+  background: none;
+  font-size: 30cqi;
+  line-height: 1;
+}
+.ks-board .square.target-hatch::after { content: "🐣"; }
+.ks-board .square.target-lay { box-shadow: inset 0 0 0 4px var(--gold); }
+.ks-board .square.target-hatch { box-shadow: inset 0 0 0 4px #2f8a3b; }
+
+.ks-egg {
+  display: block;
+  width: 52%;
+  height: 66%;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  border: 2px solid var(--ink);
+  box-shadow: inset -4px -5px 0 rgba(0, 0, 0, 0.15);
+}
+.ks-egg.white { background: #fffaf0; }
+.ks-egg.black { background: #5a3a2a; }
+
+.ks-promo {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.ks-promo[hidden] { display: none; }
+.ks-promo-btn {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  background: var(--gold-light);
+  cursor: pointer;
+  container-type: inline-size;
+}
+
+.ks-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.ks-controls .btn { font: inherit; font-weight: 800; cursor: pointer; padding: 0.5rem 1rem; }
+.ks-controls .btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+.ks-autoflip { display: block; text-align: center; margin-top: 0.75rem; color: var(--muted); font-weight: 700; }
+
+.ks-status {
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 1.25rem;
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+}
+.ks-status.turn-white { background: #fffaf0; color: var(--ink); }
+.ks-status.turn-black { background: var(--ink); color: var(--gold-light); }
+.ks-status.over { background: var(--crimson); color: #fff; }
+
+.ks-news {
+  margin: 0 0 0.75rem;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius);
+  background: var(--gold-light);
+  border: 2px dashed var(--brown);
+  font-weight: 800;
+}
+.ks-news[hidden] { display: none; }
+
+.ks-moves { max-height: 200px; margin-bottom: 1rem; }
+.ks-moves:empty { display: none; }
+.ks-move { padding: 0.15rem 0.5rem; font-weight: 700; }
+
+.ks-rules summary { font-family: var(--font-display); font-size: 1.4rem; color: var(--crimson); cursor: pointer; }
+.ks-rules ul { padding-left: 1.2rem; }
+.ks-rules li { margin-bottom: 0.4rem; }
+
+/* Kip (vervangt het paard in Kippenschaak) */
+.ks-chicken { width: 84%; height: 84%; overflow: visible; }
+.ks-chicken-body-outline { stroke-width: 7; stroke-linejoin: round; }
+.ks-chicken-body { stroke: none; }
+.ks-chicken.white .ks-chicken-body-outline { fill: #000; stroke: #000; }
+.ks-chicken.white .ks-chicken-body { fill: #fffaf0; }
+.ks-chicken.white .ks-chicken-wing { fill: none; stroke: #6e4a3a; stroke-width: 3; }
+.ks-chicken.black .ks-chicken-body-outline { fill: #fff; stroke: rgba(255, 255, 255, 0.6); stroke-width: 4; }
+.ks-chicken.black .ks-chicken-body { fill: var(--ink); }
+.ks-chicken.black .ks-chicken-wing { fill: none; stroke: var(--gold); stroke-width: 3; }
+.ks-chicken-red { fill: var(--red); stroke: #000; stroke-width: 1.5; }
+.ks-chicken-beak { fill: #f0a020; stroke: #000; stroke-width: 1.5; stroke-linejoin: round; }
+.ks-chicken.white .ks-chicken-eye { fill: #000; }
+.ks-chicken.black .ks-chicken-eye { fill: #fff; }
+.ks-chicken-legs { fill: none; stroke: #e08a10; stroke-width: 4; stroke-linecap: round; }
+.ks-promo-btn .ks-chicken { width: 70%; height: 70%; }
+.ks-eggs { list-style: none; margin: 0 0 0.75rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ks-eggs li { padding: 0.3rem 0.75rem; border-radius: 999px; border: 2px solid var(--ink); font-weight: 800; font-size: 0.9rem; background: #fff; }
+.ks-eggs li.waiting { background: transparent; color: var(--muted); border-style: dashed; }
