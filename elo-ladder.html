@@ -38,12 +38,13 @@
       <section id="intro" class="intro-card">
         <h2>Hoe werkt het?</h2>
         <ol>
-          <li>Je krijgt een echte partij van Lichess te zien. Bekijk de zetten op het bord.</li>
+          <li>Je krijgt een echte partij van Lichess te zien. Blader zelf door de zetten op het bord.</li>
           <li>Raad hoe sterk de spelers waren: leg de partij op de juiste plek in je tijdlijn,
             tussen de gemiddelde ratings die je al hebt.</li>
           <li>Juist? Dan blijft de kaart liggen en wordt je tijdlijn steeds lastiger.
             Fout? Dan breekt er een eitje. 🍳</li>
         </ol>
+        <p>Je hebt <strong>60 seconden</strong> per partij. Is de tijd op, dan breekt er ook een eitje.</p>
         <p>Leg <strong>10 partijen</strong> correct voor je 3 eitjes op zijn en je wint.</p>
         <button id="start-btn" class="btn btn-primary">Start</button>
       </section>
@@ -53,6 +54,8 @@
           <span>Score: <strong id="score">0 / 10</strong></span>
           <span>Levens: <span id="lives"></span></span>
           <span>Record: <strong id="best">0</strong></span>
+          <span class="clock">⏱ <strong id="clock">60</strong>s</span>
+          <div class="clock-track" aria-hidden="true"><div id="clock-bar" class="clock-bar"></div></div>
         </div>
 
         <div class="game-layout">

@@ -4,6 +4,7 @@
 const GOAL = 10;
 const LIVES = 3;
 const AUTOPLAY_MS = 700;
+const ANSWER_SECONDS = 60;
 const BEST_KEY = "kip-en-schaak:elo-ladder:best";
 
 const SPEEDS = { blitz: "Blitz", rapid: "Rapid", classical: "Klassiek" };
@@ -22,6 +23,8 @@ const el = {
   score: document.getElementById("score"),
   lives: document.getElementById("lives"),
   best: document.getElementById("best"),
+  clock: document.getElementById("clock"),
+  clockBar: document.getElementById("clock-bar"),
   btnFirst: document.getElementById("btn-first"),
   btnPrev: document.getElementById("btn-prev"),
   btnPlay: document.getElementById("btn-play"),
@@ -42,13 +45,19 @@ function shuffle(arr) {
 
 function newGame() {
   const deck = shuffle(ELO_GAMES);
+  if (state) {
+    stopAutoplay();
+    stopClock();
+  }
   state = {
     deck,
     timeline: [deck.pop()],
     current: null,
     positions: [],
     ply: 0,
-    timer: null,
+    timer: null,        // interval voor afspelen
+    clock: null,        // interval voor de afteltimer
+    deadline: 0,
     score: 0,
     lives: LIVES,
     phase: "guess",     // guess | reveal | over
@@ -70,8 +79,31 @@ function nextCard() {
   renderMoves();
   renderTimeline();
   renderStatus();
-  startAutoplay();
+  startClock();
   document.querySelector(".status-bar").scrollIntoView({ behavior: "smooth" });
+}
+
+// ---------- Timer ----------
+
+function startClock() {
+  stopClock();
+  state.deadline = Date.now() + ANSWER_SECONDS * 1000;
+  renderClock();
+  state.clock = setInterval(renderClock, 200);
+}
+
+function stopClock() {
+  clearInterval(state.clock);
+  state.clock = null;
+}
+
+function renderClock() {
+  const msLeft = Math.max(0, state.deadline - Date.now());
+  const secondsLeft = Math.ceil(msLeft / 1000);
+  el.clock.textContent = secondsLeft;
+  el.clockBar.style.width = `${(msLeft / (ANSWER_SECONDS * 1000)) * 100}%`;
+  el.clockBar.parentElement.classList.toggle("urgent", secondsLeft <= 10);
+  if (msLeft === 0 && state.phase === "guess") guess(null); // tijd op = fout
 }
 
 // ---------- Bord en zetten ----------
@@ -213,22 +245,27 @@ function correctIndex(game) {
   return i === -1 ? state.timeline.length : i;
 }
 
+// index === null betekent: de tijd is op.
 function guess(index) {
   if (state.phase !== "guess") return;
   const g = state.current;
   const t = state.timeline;
-  const lower = index === 0 ? -Infinity : t[index - 1].avgElo;
-  const upper = index === t.length ? Infinity : t[index].avgElo;
-  const correct = lower <= g.avgElo && g.avgElo <= upper; // gelijke Elo mag aan beide kanten
+  let correct = false;
+  if (index !== null) {
+    const lower = index === 0 ? -Infinity : t[index - 1].avgElo;
+    const upper = index === t.length ? Infinity : t[index].avgElo;
+    correct = lower <= g.avgElo && g.avgElo <= upper; // gelijke Elo mag aan beide kanten
+  }
 
   stopAutoplay();
+  stopClock();
   if (correct) {
     t.splice(index, 0, g);
     state.score++;
   } else {
     state.lives--;
   }
-  state.reveal = { game: g, index, correct };
+  state.reveal = { game: g, index, correct, timeout: index === null };
   state.phase = state.score >= GOAL || state.lives <= 0 ? "over" : "reveal";
 
   renderTimeline();
@@ -250,13 +287,16 @@ function renderStatus() {
 }
 
 function renderFeedback() {
-  const { game, correct } = state.reveal;
+  const { game, correct, timeout } = state.reveal;
   const lichess = `https://lichess.org/${game.id}`;
   let title, text, button;
 
   if (correct) {
     title = "Juist! 🐔";
     text = `Gemiddelde Elo: <strong>${game.avgElo}</strong> (wit ${game.whiteElo}, zwart ${game.blackElo}).`;
+  } else if (timeout) {
+    title = "Tijd is op! ⏰";
+    text = `Deze partij had een gemiddelde Elo van <strong>${game.avgElo}</strong> (wit ${game.whiteElo}, zwart ${game.blackElo}).`;
   } else {
     title = "Mis! 🍳";
     text = `Deze partij had een gemiddelde Elo van <strong>${game.avgElo}</strong> (wit ${game.whiteElo}, zwart ${game.blackElo}).`;
