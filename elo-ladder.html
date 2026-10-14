@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elo-ladder — Spellen — Kip en Schaak</title>
+  <meta name="description" content="Elo-ladder: rangschik echte Lichess-partijen op gemiddelde rating. Hitster voor schakers." />
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/games.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/favicon.png" alt="" width="40" height="40" />
+        <span>Kip en Schaak</span>
+      </a>
+      <button class="nav-toggle" aria-label="Menu openen" aria-expanded="false">☰</button>
+      <nav class="site-nav">
+        <a href="index.html#afleveringen">Afleveringen</a>
+        <a href="spellen.html" aria-current="page">Spellen</a>
+        <a href="index.html#over">Over ons</a>
+        <a href="index.html#luister">Kijk &amp; luister</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section game-page">
+    <div class="container">
+      <p class="breadcrumb"><a href="spellen.html">← Alle spellen</a></p>
+      <h1>Elo-ladder</h1>
+
+      <section id="intro" class="intro-card">
+        <h2>Hoe werkt het?</h2>
+        <ol>
+          <li>Je krijgt een echte partij van Lichess te zien. Bekijk de zetten op het bord.</li>
+          <li>Raad hoe sterk de spelers waren: leg de partij op de juiste plek in je tijdlijn,
+            tussen de gemiddelde ratings die je al hebt.</li>
+          <li>Juist? Dan blijft de kaart liggen en wordt je tijdlijn steeds lastiger.
+            Fout? Dan breekt er een eitje. 🍳</li>
+        </ol>
+        <p>Leg <strong>10 partijen</strong> correct voor je 3 eitjes op zijn en je wint.</p>
+        <button id="start-btn" class="btn btn-primary">Start</button>
+      </section>
+
+      <div id="play" hidden>
+        <div class="status-bar">
+          <span>Score: <strong id="score">0 / 10</strong></span>
+          <span>Levens: <span id="lives"></span></span>
+          <span>Record: <strong id="best">0</strong></span>
+        </div>
+
+        <div class="game-layout">
+          <div class="board-column">
+            <div id="board" class="board" aria-label="Schaakbord"></div>
+            <div class="board-controls">
+              <button id="btn-first" aria-label="Naar het begin">⏮</button>
+              <button id="btn-prev" aria-label="Vorige zet">◀</button>
+              <button id="btn-play" aria-label="Speel af">▶</button>
+              <button id="btn-next" aria-label="Volgende zet">▶▏</button>
+              <button id="btn-last" aria-label="Naar het einde">⏭</button>
+            </div>
+            <p id="move-counter" class="move-counter"></p>
+          </div>
+
+          <div class="info-column">
+            <dl id="game-info" class="game-info"></dl>
+            <section class="timeline-section">
+              <h2>Jouw tijdlijn</h2>
+              <p class="timeline-axis"><span>← lagere Elo</span><span>hogere Elo →</span></p>
+              <div id="timeline" class="timeline"></div>
+              <p id="timeline-hint" class="timeline-hint"></p>
+            </section>
+
+            <section id="feedback" class="feedback" hidden aria-live="polite"></section>
+            <div id="moves" class="moves"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="data-credit">
+        Partijen uit de <a href="https://database.lichess.org/" target="_blank" rel="noopener">Lichess-database</a> (CC0).
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Kip en Schaak</p>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/data/elo-games.js"></script>
+  <script src="js/board.js"></script>
+  <script src="js/elo-ladder.js"></script>
+</body>
+</html>

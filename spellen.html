@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spellen — Kip en Schaak</title>
+  <meta name="description" content="Schaakspelletjes van Kip en Schaak: test je schaakgevoel." />
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/games.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/favicon.png" alt="" width="40" height="40" />
+        <span>Kip en Schaak</span>
+      </a>
+      <button class="nav-toggle" aria-label="Menu openen" aria-expanded="false">☰</button>
+      <nav class="site-nav">
+        <a href="index.html#afleveringen">Afleveringen</a>
+        <a href="spellen.html" aria-current="page">Spellen</a>
+        <a href="index.html#over">Over ons</a>
+        <a href="index.html#luister">Kijk &amp; luister</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Spellen</h1>
+        <p class="lead">Even geen nieuwe aflevering? Test hier je schaakgevoel.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container game-cards">
+        <a class="game-card" href="elo-ladder.html">
+          <span class="game-card-icon" aria-hidden="true">📈</span>
+          <h2>Elo-ladder</h2>
+          <p>
+            Hitster, maar dan met schaakpartijen. Bekijk een partij en leg ze op de juiste
+            plek in je tijdlijn van ratings. Haal je er 10 voor je eitjes op zijn?
+          </p>
+          <span class="btn btn-primary">Speel</span>
+        </a>
+        <div class="game-card game-card-soon">
+          <span class="game-card-icon" aria-hidden="true">🥚</span>
+          <h2>Binnenkort meer</h2>
+          <p>Ideeën voor een volgend spel? Laat het ons weten via Instagram of mail.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Kip en Schaak</p>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+</body>
+</html>
