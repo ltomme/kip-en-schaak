@@ -180,10 +180,6 @@ function buildLine(p) {
 
 // ---------- Weergave ----------
 
-function pieceHtml(p) {
-  return `<span class="piece ${colorOf(p) === "w" ? "white" : "black"}">${GLYPHS[typeOf(p)]}</span>`;
-}
-
 function render() {
   const s = state.pos;
   const targets = new Map();
@@ -205,7 +201,7 @@ function render() {
     if (i === state.selected) sq.classList.add("selected");
     if (i === checkedKing) sq.classList.add("in-check");
     if (targets.has(i)) sq.classList.add("target", `target-${targets.get(i)}`);
-    if (s.sq[i]) sq.innerHTML = pieceHtml(s.sq[i]);
+    if (s.sq[i]) sq.innerHTML = pieceImg(s.sq[i]);
     el.board.append(sq);
   }
 }
@@ -312,7 +308,7 @@ enableBoardInput(el.board, {
   select: (i) => { state.selected = i; render(); },
   canDrag: (i) => Boolean(state.pos.sq[i]) && colorOf(state.pos.sq[i]) === state.pos.turn,
   tryMove,
-  pieceHtml: (i) => pieceHtml(state.pos.sq[i]),
+  pieceHtml: (i) => pieceImg(state.pos.sq[i]),
   redraw: render
 });
 

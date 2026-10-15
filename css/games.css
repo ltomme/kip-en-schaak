@@ -101,28 +101,13 @@ a.game-card:hover { color: var(--ink); transform: translate(-2px, -2px); box-sha
 .square.dark { background: var(--brown); }
 .square.last-move.light { background: #f3e27a; }
 .square.last-move.dark { background: #c9a43a; }
-/* Eigen lettertype voor de stukken (Noto Sans Symbols 2, enkel ♚–♟; SIL OFL, zie assets/fonts/OFL.txt),
-   zodat ze er op elk toestel hetzelfde uitzien: iOS gebruikt anders een emoji voor de pion. */
-@font-face {
-  font-family: "Kip Schaakstukken";
-  src: url("../assets/fonts/chess-pieces.woff2") format("woff2");
-  unicode-range: U+265A-265F;
-  font-display: block;
-}
-
 .piece {
-  font-size: 82cqi;
-  line-height: 1;
-  font-family: "Kip Schaakstukken", "Segoe UI Symbol", "DejaVu Sans", sans-serif;
-  font-variant-emoji: text;
-}
-.piece.white {
-  color: #fffaf0;
-  text-shadow: 0 0 1px #000, 0 0 1px #000, 0 0 2px #000;
-}
-.piece.black {
-  color: var(--ink);
-  text-shadow: 0 0 1px rgba(255, 255, 255, 0.6);
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;   /* klikken en slepen gaan naar het veld */
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .board-controls {
@@ -418,7 +403,7 @@ a.game-card:hover { color: var(--ink); transform: translate(-2px, -2px); box-sha
 .ks-chicken.white .ks-chicken-body { fill: #fffaf0; }
 .ks-chicken.white .ks-chicken-wing { fill: none; stroke: #6e4a3a; stroke-width: 3; }
 .ks-chicken.black .ks-chicken-body-outline { fill: #fff; stroke: rgba(255, 255, 255, 0.6); stroke-width: 4; }
-.ks-chicken.black .ks-chicken-body { fill: var(--ink); }
+.ks-chicken.black .ks-chicken-body { fill: #000; }   /* zelfde zwart als de Lichess-stukken */
 .ks-chicken.black .ks-chicken-wing { fill: none; stroke: var(--gold); stroke-width: 3; }
 .ks-chicken-red { fill: var(--red); stroke: #000; stroke-width: 1.5; }
 .ks-chicken-beak { fill: #f0a020; stroke: #000; stroke-width: 1.5; stroke-linejoin: round; }
@@ -444,7 +429,7 @@ a.game-card:hover { color: var(--ink); transform: translate(-2px, -2px); box-sha
   container-type: inline-size;
   filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.35));
 }
-.ks-ghost .piece { font-size: 80cqi; line-height: 1; }
+.ks-ghost .piece { width: 100%; height: 100%; }
 
 /* Bestraf Glen! */
 .glen-line {

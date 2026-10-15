@@ -136,7 +136,7 @@ function chickenSvg(color) {
 function pieceHtml(p) {
   if (isEgg(p)) return `<span class="ks-egg ${colorOf(p) === "w" ? "white" : "black"}" aria-label="ei"></span>`;
   if (typeOf(p) === "n") return chickenSvg(colorOf(p));
-  return `<span class="piece ${colorOf(p) === "w" ? "white" : "black"}">${GLYPHS[typeOf(p)]}</span>`;
+  return pieceImg(p);
 }
 
 function render() {

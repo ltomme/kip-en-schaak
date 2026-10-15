@@ -3,11 +3,12 @@
 
 const START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 
-// Gevulde glyphs voor beide kleuren; de kleur zelf komt uit CSS.
-// U+FE0E vraagt om tekst in plaats van emoji (anders tekent iOS de pion ♟ als emoji).
-const GLYPHS = Object.fromEntries(
-  Object.entries({ k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟" }).map(([t, g]) => [t, g + "︎"])
-);
+// Stukken van Lichess ("cburnett", Colin M.L. Burnett, GPLv2+; zie assets/pieces/cburnett/LICENSE.txt).
+// Stuk in FEN-letter: hoofdletter = wit.
+function pieceImg(piece) {
+  const color = piece === piece.toUpperCase() ? "w" : "b";
+  return `<img class="piece" src="assets/pieces/cburnett/${color}${piece.toUpperCase()}.svg" alt="" draggable="false">`;
+}
 
 function fenToSquares(fen) {
   const squares = [];
@@ -83,7 +84,6 @@ function renderBoard(container, squares, lastUci, flipped = false) {
       sq.textContent = "";
       return;
     }
-    const isWhite = piece === piece.toUpperCase();
-    sq.innerHTML = `<span class="piece ${isWhite ? "white" : "black"}">${GLYPHS[piece.toLowerCase()]}</span>`;
+    sq.innerHTML = pieceImg(piece);
   });
 }

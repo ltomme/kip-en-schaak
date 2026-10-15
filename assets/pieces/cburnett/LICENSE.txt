@@ -1,0 +1,5 @@
+Schaakstukken "cburnett" door Colin M.L. Burnett (https://en.wikipedia.org/wiki/User:Cburnett),
+zoals gebruikt op Lichess (https://github.com/lichess-org/lila/tree/master/public/piece/cburnett).
+
+Licentie: GNU General Public License, versie 2 of later (GPLv2+)
+https://www.gnu.org/licenses/gpl-2.0.txt
