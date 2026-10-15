@@ -4,7 +4,10 @@
 const START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
 
 // Gevulde glyphs voor beide kleuren; de kleur zelf komt uit CSS.
-const GLYPHS = { k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟" };
+// U+FE0E vraagt om tekst in plaats van emoji (anders tekent iOS de pion ♟ als emoji).
+const GLYPHS = Object.fromEntries(
+  Object.entries({ k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟" }).map(([t, g]) => [t, g + "︎"])
+);
 
 function fenToSquares(fen) {
   const squares = [];

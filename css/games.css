@@ -101,10 +101,20 @@ a.game-card:hover { color: var(--ink); transform: translate(-2px, -2px); box-sha
 .square.dark { background: var(--brown); }
 .square.last-move.light { background: #f3e27a; }
 .square.last-move.dark { background: #c9a43a; }
+/* Eigen lettertype voor de stukken (Noto Sans Symbols 2, enkel ♚–♟; SIL OFL, zie assets/fonts/OFL.txt),
+   zodat ze er op elk toestel hetzelfde uitzien: iOS gebruikt anders een emoji voor de pion. */
+@font-face {
+  font-family: "Kip Schaakstukken";
+  src: url("../assets/fonts/chess-pieces.woff2") format("woff2");
+  unicode-range: U+265A-265F;
+  font-display: block;
+}
+
 .piece {
   font-size: 82cqi;
   line-height: 1;
-  font-family: "Segoe UI Symbol", "DejaVu Sans", "Noto Sans Symbols 2", sans-serif;
+  font-family: "Kip Schaakstukken", "Segoe UI Symbol", "DejaVu Sans", sans-serif;
+  font-variant-emoji: text;
 }
 .piece.white {
   color: #fffaf0;
