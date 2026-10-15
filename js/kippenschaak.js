@@ -24,7 +24,7 @@ function newGame() {
     selected: null,
     lastMove: null,
     flipped: false,
-    news: "Wit begint. Tip: klik je dame en dan je koning om een ei te leggen."
+    news: "Wit begint. Tip: sleep je dame naar je koning om een ei te leggen."
   };
   render();
 }
@@ -38,21 +38,95 @@ function status() {
 function onSquareClick(i) {
   const st = status();
   if (st.over) return;
-  const s = game.state;
-  const piece = s.sq[i];
-
-  if (game.selected !== null) {
-    const options = st.moves.filter((m) => m.from === game.selected && m.to === i);
-    if (options.length) {
-      if (options.some((m) => m.promo)) askPromotion(options);
-      else play(options[0]);
-      return;
-    }
-  }
+  if (tryMove(game.selected, i, st)) return;
   // (De)selecteren van een eigen stuk; eieren zelf zijn niet te verplaatsen.
-  game.selected = piece && colorOf(piece) === s.turn && !isEgg(piece) && game.selected !== i ? i : null;
+  game.selected = isOwnPiece(i) && game.selected !== i ? i : null;
   render();
 }
+
+function isOwnPiece(i) {
+  const p = game.state.sq[i];
+  return Boolean(p) && colorOf(p) === game.state.turn && !isEgg(p);
+}
+
+// Speelt de zet from → to als die legaal is (met keuze bij promotie).
+function tryMove(from, to, st = status()) {
+  if (from === null || to === null) return false;
+  const options = st.moves.filter((m) => m.from === from && m.to === to);
+  if (!options.length) return false;
+  if (options.some((m) => m.promo)) askPromotion(options);
+  else play(options[0]);
+  return true;
+}
+
+// ---------- Slepen (muis en touch) ----------
+
+const DRAG_THRESHOLD = 5;   // pixels voor een klik een sleepbeweging wordt
+let press = null;           // { index, x, y, pointerId, drag, wasSelected, ghost }
+
+function squareAt(x, y) {
+  const sq = document.elementFromPoint(x, y)?.closest("#ks-board .square");
+  return sq ? +sq.dataset.index : null;
+}
+
+el.board.addEventListener("pointerdown", (e) => {
+  if (e.button !== 0 || press) return;
+  const sq = e.target.closest(".square");
+  if (!sq || status().over) return;
+  const i = +sq.dataset.index;
+  e.preventDefault();
+  // Een eigen stuk dat geen doel van de geselecteerde zet is (bv. de koning bij ei leggen) kan je slepen.
+  const isTarget = game.selected !== null && status().moves.some((m) => m.from === game.selected && m.to === i);
+  const drag = isOwnPiece(i) && !isTarget;
+  press = { index: i, x: e.clientX, y: e.clientY, pointerId: e.pointerId, drag, wasSelected: game.selected === i, ghost: null };
+  if (drag && game.selected !== i) {
+    game.selected = i;
+    render();
+  }
+  el.board.setPointerCapture(e.pointerId);
+});
+
+el.board.addEventListener("pointermove", (e) => {
+  if (!press || e.pointerId !== press.pointerId || !press.drag) return;
+  if (!press.ghost) {
+    if (Math.hypot(e.clientX - press.x, e.clientY - press.y) < DRAG_THRESHOLD) return;
+    const size = el.board.querySelector(".square").getBoundingClientRect().width;
+    press.ghost = document.createElement("div");
+    press.ghost.className = "ks-ghost";
+    press.ghost.style.width = press.ghost.style.height = `${size}px`;
+    press.ghost.innerHTML = pieceHtml(game.state.sq[press.index]);
+    document.body.append(press.ghost);
+    el.board.querySelector(`[data-index="${press.index}"]`)?.classList.add("drag-origin");
+  }
+  press.ghost.style.left = `${e.clientX}px`;
+  press.ghost.style.top = `${e.clientY}px`;
+  const over = squareAt(e.clientX, e.clientY);
+  for (const s of el.board.querySelectorAll(".drag-over")) s.classList.remove("drag-over");
+  if (over !== null) el.board.querySelector(`[data-index="${over}"]`).classList.add("drag-over");
+});
+
+function endPress(e, cancelled) {
+  if (!press || e.pointerId !== press.pointerId) return;
+  const p = press;
+  press = null;
+  if (el.board.hasPointerCapture(e.pointerId)) el.board.releasePointerCapture(e.pointerId);
+  if (p.ghost) {
+    p.ghost.remove();
+    // Loslaten op een legaal veld speelt de zet; anders keert het stuk terug (en blijft geselecteerd).
+    if (cancelled || !tryMove(p.index, squareAt(e.clientX, e.clientY))) render();
+    return;
+  }
+  if (cancelled) return;
+  if (p.drag) {
+    // Gewone klik op een eigen stuk: selectie stond al aan; nogmaals klikken zet ze uit.
+    if (p.wasSelected) { game.selected = null; render(); }
+  } else if (squareAt(e.clientX, e.clientY) === p.index) {
+    onSquareClick(p.index);
+  }
+}
+
+el.board.addEventListener("pointerup", (e) => endPress(e, false));
+el.board.addEventListener("pointercancel", (e) => endPress(e, true));
 
 function askPromotion(options) {
   el.promo.replaceChildren();
@@ -158,7 +232,9 @@ function render() {
       sq.title = kind === "lay" ? "Ei leggen" : kind === "hatch" ? "Ei uitbroeden" : kind === "breakEgg" ? "Ei kapotmaken" : "";
     }
     if (s.sq[i]) sq.innerHTML = pieceHtml(s.sq[i]);
-    sq.addEventListener("click", () => onSquareClick(i));
+    sq.dataset.index = i;
+    // Muis en touch lopen via de pointer-events hierboven; dit is voor het toetsenbord.
+    sq.addEventListener("click", (e) => { if (e.detail === 0) onSquareClick(i); });
     el.board.append(sq);
   }
 
