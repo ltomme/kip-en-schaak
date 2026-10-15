@@ -13,6 +13,7 @@ spellen.html           Overzicht van de spelletjes
 elo-ladder.html        Spel: Elo-ladder (Hitster met schaakpartijen)
 blunder-briljant.html  Spel: Blunder of briljant?
 kippenschaak.html      Spel: Kippenschaak (schaak met eieren, 2 spelers)
+bestraf-glen.html      Spel: Bestraf Glen! (beste reactie op Glens blunders)
 css/styles.css         Opmaak en kleuren (aanpasbaar via CSS-variabelen bovenaan)
 css/games.css          Extra opmaak voor de spellen
 js/episodes.js         Lijst met afleveringen — hier voeg je nieuwe afleveringen toe
@@ -23,8 +24,11 @@ js/elo-ladder.js       Spellogica van de Elo-ladder
 js/blunder-briljant.js Spellogica van Blunder of briljant?
 js/kippenschaak-rules.js  Spelregels van Kippenschaak (schaak + eieren)
 js/kippenschaak.js     Bediening en weergave van Kippenschaak
+js/board-input.js      Klikken en slepen op een bord (gedeeld)
+js/bestraf-glen.js     Spellogica van Bestraf Glen!
 js/data/elo-games.js   315 Lichess-partijen voor de Elo-ladder (gegenereerd)
 js/data/blunder-briljant.js  120 blunders + 120 briljante offers (gegenereerd)
+js/data/glen-blunders.js     Blunders van Glen met oplossing (gegenereerd)
 tools/                 Scripts om nieuwe partijen en stellingen te selecteren
 assets/                Logo (van het YouTube-kanaal), favicon en hostfoto's
 ```
@@ -92,6 +96,17 @@ python tools/select_blunder_briljant.py part.pgn js/data/blunder-briljant.js --s
 
 De eerste keer duurt het scannen ~10 minuten; de gevonden kandidaten worden bewaard
 in `part.pgn.kandidaten.json`, zodat een nieuwe Stockfish-ronde meteen start.
+
+## Bestraf Glen!: nieuwe blunders
+
+Download Glens blitzpartijen met evaluaties (Lichess weigert de standaard-User-Agent van curl,
+en geeft anoniem max. 10.000 partijen per keer; ga verder met `&until=<tijd van de oudste>`).
+Zet zijn Lichess-naam niet in deze repository: de site mag niet naar zijn account leiden.
+
+```
+curl -A "kip-en-schaak" "https://lichess.org/api/games/user/<naam>?perfType=blitz&clocks=true&evals=true&opening=true" -o glen.pgn
+python tools/select_glen_blunders.py glen.pgn js/data/glen-blunders.js --player <naam> --stockfish <pad/naar/stockfish.exe>
+```
 
 ## Publiceren
 

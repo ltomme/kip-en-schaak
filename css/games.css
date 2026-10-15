@@ -435,3 +435,29 @@ a.game-card:hover { color: var(--ink); transform: translate(-2px, -2px); box-sha
   filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.35));
 }
 .ks-ghost .piece { font-size: 80cqi; line-height: 1; }
+
+/* Bestraf Glen! */
+.glen-line {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  background: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: baseline;
+}
+.glen-line[hidden] { display: none; }
+.glen-line-label { flex-basis: 100%; margin: 0 0 0.25rem; font-weight: 800; color: var(--muted); }
+.glen-line-move {
+  font: inherit;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: var(--gold-light);
+  cursor: pointer;
+}
+.glen-line-move:hover, .glen-line-move.active { border-color: var(--ink); }
+.glen-line-move.active { background: var(--gold); }
