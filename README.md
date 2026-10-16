@@ -113,6 +113,15 @@ curl -A "kip-en-schaak" "https://lichess.org/api/games/user/<naam>?perfType=blit
 python tools/select_glen_blunders.py glen.pgn js/data/glen-blunders.js --player <naam> --stockfish <pad/naar/stockfish.exe>
 ```
 
+## Na elke wijziging aan CSS of JS
+
+```
+python tools/cache_bust.py
+```
+
+Zet een nieuw versienummer (`?v=...`) achter de CSS- en JS-bestanden in alle pagina's, zodat
+bezoekers meteen de nieuwe versie krijgen (GitHub Pages laat browsers bestanden 10 minuten bewaren).
+
 ## Publiceren
 
 Werkt op elke statische host: GitHub Pages, Netlify, Cloudflare Pages, …
