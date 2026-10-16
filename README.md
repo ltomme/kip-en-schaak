@@ -8,6 +8,7 @@ Website voor de schaakpodcast **Kip en Schaak**. Statische site (HTML/CSS/JS), g
 index.html             Homepagina (logo, nieuwste aflevering, spellen)
 afleveringen.html      Alle afleveringen met zoekfunctie
 over-ons.html          De hosts
+kippenhok.html         Andere leuke schaakinitiatieven (links)
 contact.html           Contact
 spellen.html           Overzicht van de spelletjes
 elo-ladder.html        Spel: Elo-ladder (Hitster met schaakpartijen)

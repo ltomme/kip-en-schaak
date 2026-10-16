@@ -346,8 +346,8 @@ a:hover { color: var(--red); }
   .hero-logo { max-width: 300px; grid-row: 1; }
 }
 
-/* Uitklapmenu: met zes tabs past de menubalk pas vanaf ~960px */
-@media (max-width: 960px) {
+/* Uitklapmenu: met zeven tabs past de menubalk pas vanaf ~1080px */
+@media (max-width: 1080px) {
   .nav-toggle { display: block; }
   .site-nav {
     display: none;
@@ -387,7 +387,7 @@ a:hover { color: var(--red); }
 .social-instagram svg { fill: #f05a8a; }
 .social-links a:hover { background: rgba(242, 218, 162, 0.15); transform: scale(1.1); }
 
-@media (max-width: 960px) {
+@media (max-width: 1080px) {
   .social-links { margin-left: auto; }
 }
 
@@ -402,4 +402,45 @@ a:hover { color: var(--red); }
 }
 @media (max-width: 360px) {
   .site-header .container { padding: 0 0.75rem; }
+}
+
+/* Kippenhok: andere initiatieven */
+.nests {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 700px) {
+  .nests { grid-template-columns: 1fr; }
+}
+.nest {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 5px 5px 0 var(--brown);
+  padding: 1.5rem;
+}
+.nest-icon { font-size: 2.2rem; line-height: 1; }
+.nest h2 { font-size: 1.5rem; margin: 0.75rem 0 0.25rem; }
+.nest-kind {
+  margin: 0 0 0.75rem;
+  color: var(--brown);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+.nest p { margin-top: 0; }
+.nest-links { margin-top: auto; display: flex; flex-direction: column; gap: 0.35rem; }
+.nest-link { text-decoration: none; }
+.nest-link:hover { text-decoration: underline; }
+
+.ai-note {
+  margin: 2rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-style: italic;
+  text-align: center;
 }
