@@ -456,3 +456,55 @@ a.game-card:hover { color: var(--ink); transform: translate(-2px, -2px); box-sha
 }
 .glen-line-move:hover, .glen-line-move.active { border-color: var(--ink); }
 .glen-line-move.active { background: var(--gold); }
+
+/* Word Landskampioen! */
+.lk-choices { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; }
+.lk-choice {
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  padding: 0.6rem 1rem;
+  border: 3px solid var(--ink);
+  border-radius: var(--radius);
+  background: #fff;
+  cursor: pointer;
+}
+.lk-choice strong { font-size: 1.05rem; }
+.lk-choice span { color: var(--muted); font-size: 0.85rem; font-weight: 700; }
+.lk-choice.active { background: var(--gold); box-shadow: 3px 3px 0 var(--brown); }
+#setup .btn { margin-top: 0.5rem; }
+#setup h3 { margin: 1.25rem 0 0.5rem; }
+
+.lk-loading { text-align: center; font-weight: 800; color: var(--muted); }
+.lk-state { font-weight: 800; margin: 0.25rem 0 0.75rem; min-height: 1.4em; }
+.lk-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.lk-actions .btn { font: inherit; font-weight: 800; padding: 0.4rem 0.9rem; cursor: pointer; }
+.lk-actions .btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+#lk-feedback { margin-bottom: 1.5rem; }
+
+.lk-minis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+.lk-mini {
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.4rem;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+}
+.lk-mini.selected { border-color: var(--ink); }
+.lk-mini.waiting { background: var(--gold-light); animation: lk-pulse 1.4s ease-in-out infinite; }
+.lk-mini.done { opacity: 0.7; }
+@keyframes lk-pulse { 50% { box-shadow: 0 0 0 4px var(--gold); } }
+.lk-mini-label, .lk-mini-state { font-size: 0.75rem; font-weight: 800; text-align: center; min-height: 1.1em; }
+.lk-mini-board { border-width: 2px; box-shadow: none; pointer-events: none; }
+.lk-moves { margin-top: 1rem; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }

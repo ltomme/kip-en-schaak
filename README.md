@@ -15,6 +15,7 @@ elo-ladder.html        Spel: Elo-ladder (Hitster met schaakpartijen)
 blunder-briljant.html  Spel: Blunder of briljant?
 kippenschaak.html      Spel: Kippenschaak (schaak met eieren, 2 spelers)
 bestraf-glen.html      Spel: Bestraf Glen! (beste reactie op Glens blunders)
+landskampioen.html     Spel: Word Landskampioen! (8 partijen tegelijk tegen Stockfish)
 css/styles.css         Opmaak en kleuren (aanpasbaar via CSS-variabelen bovenaan)
 css/games.css          Extra opmaak voor de spellen
 js/episodes.js         Lijst met afleveringen — hier voeg je nieuwe afleveringen toe
@@ -27,6 +28,9 @@ js/kippenschaak-rules.js  Spelregels van Kippenschaak (schaak + eieren)
 js/kippenschaak.js     Bediening en weergave van Kippenschaak
 js/board-input.js      Klikken en slepen op een bord (gedeeld)
 js/bestraf-glen.js     Spellogica van Bestraf Glen!
+js/landskampioen.js    Spellogica van Word Landskampioen!
+js/chess-notation.js   FEN, UCI en SAN bovenop de regels (gedeeld)
+js/vendor/stockfish/   Stockfish 19 lite (WebAssembly, GPLv3)
 js/data/elo-games.js   315 Lichess-partijen voor de Elo-ladder (gegenereerd)
 js/data/blunder-briljant.js  120 blunders + 120 briljante offers (gegenereerd)
 js/data/glen-blunders.js     Blunders van Glen met oplossing (gegenereerd)

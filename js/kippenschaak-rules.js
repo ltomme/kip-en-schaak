@@ -44,7 +44,7 @@ function ksNewGame() {
 }
 
 function cloneState(s) {
-  return { sq: s.sq.slice(), turn: s.turn, castling: { ...s.castling }, ep: s.ep, eggLock: { ...(s.eggLock ?? { w: false, b: false }) } };
+  return { sq: s.sq.slice(), turn: s.turn, castling: { ...s.castling }, ep: s.ep, eggLock: { ...(s.eggLock ?? { w: false, b: false }) }, noEggs: s.noEggs };
 }
 
 function findKing(s, color) {
@@ -88,8 +88,9 @@ function hasOwnEgg(s, color) {
 }
 
 // Mag deze kleur (los van de stelling van dame en koning) een ei leggen?
+// `noEggs` zet de eierregels helemaal uit (gewoon schaak, bv. in Bestraf Glen! en Word Landskampioen!).
 function canLayEgg(s, color) {
-  return !hasOwnEgg(s, color) && !(s.eggLock && s.eggLock[color]);
+  return !s.noEggs && !hasOwnEgg(s, color) && !(s.eggLock && s.eggLock[color]);
 }
 
 function emptyOwnHalf(s, color) {
